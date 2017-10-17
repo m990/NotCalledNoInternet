@@ -4,7 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.Timer;
@@ -14,9 +18,6 @@ import org.omg.CORBA.Current;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
 	Dinosaur dinosaur;
-	static Cactus cactus = new Cactus(800, 265, 10, 10);
-	static Cactus cactus3 = new Cactus(1200, 255, 20, 20);
-	static Cactus cactus2 = new Cactus(1600, 275, 5, 5);
 	CactusManager cactusManager = new CactusManager();
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -64,6 +65,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void updateGameState() {
 		dinosaur.update();
 		cactusManager.update();
+		cactusManager.collisionDection(dinosaur);
+		if (!dinosaur.isAlive) {
+			CURRENT_STATE = END_STATE;
+		}
 	}
 	void updateEndState() {
 		
