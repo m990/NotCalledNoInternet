@@ -8,10 +8,10 @@ import javax.swing.JOptionPane;
 
 public class Dinosaur extends GameObject {
 	int speed;
-	static final int maxHeight = 80;
 	static boolean reachedTop = false;
 	static boolean onGround = true;
 	public static BufferedImage jongUn;
+	static int downSpeed;
 	public Dinosaur(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		speed = 5;
@@ -20,20 +20,25 @@ public class Dinosaur extends GameObject {
 		} catch(IOException e) {
 			JOptionPane.showMessageDialog(null, "YOUR IMAGE IS BAD. -Your dinosaur");
 		}
+		downSpeed = 3;
 	}
 	void draw(Graphics g) {
 		g.drawImage(jongUn, x, GamePanel.dinosaurY, width, height, null);
+		//g.setColor(Color.CYAN);
+		//g.drawRect(x, y, width, height);
 	}
 	void update() { 
 		if (!onGround()) {
 			System.out.println("In not on ground");
 			GamePanel.dinosaurY += 3;
+			y += downSpeed;
 		}
 		super.update();
 	}
 	void jump() {
 		if (onGround()) {
 			GamePanel.dinosaurY -= 180;
+			y -= 180;
 			System.out.println("In on ground");
 		}
 	}

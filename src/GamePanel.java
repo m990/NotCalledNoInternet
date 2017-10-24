@@ -24,6 +24,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int END_STATE  = 2;
 	int CURRENT_STATE = MENU_STATE;
 	static int dinosaurY = 180;
+	Score score;
+	int playerScore;
+	FlyingEnemy flyingEnemy;
 	
 	// Constructor
 	public GamePanel() {
@@ -32,6 +35,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		//cactus = new Cactus(800, 265, 10, 10);
 		//cactus2 = new Cactus(1000, 275, 5, 5);
 		dinosaurY = 160;
+		score = new Score(0);
+		playerScore = 0;
+		flyingEnemy = new FlyingEnemy(900, 150, 25, 25);
 	}
 	
 	
@@ -53,6 +59,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, NoInternet.width, NoInternet.height);
 		dinosaur.draw(g);
 		cactusManager.draw(g);
+		score.draw(g);
+		flyingEnemy.draw(g);
 	}
 	void drawEndState(Graphics g) {
 		g.setColor(Color.BLACK);
@@ -66,8 +74,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		dinosaur.update();
 		cactusManager.update();
 		cactusManager.collisionDection(dinosaur);
+		score.update();
+		flyingEnemy.update();
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
+			if (dinosaur.isAlive == false) {
+				System.out.println("Your dinosaur died");
+				dinosaur = new Dinosaur(50, 165, 100, 100);
+				cactusManager.clear();
+				cactusManager = new CactusManager();
+				score.reset();
+				score = new Score(playerScore);
+			}
 		}
 	}
 	void updateEndState() {
@@ -140,6 +158,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			System.out.println(dinosaurY);
 			dinosaur.jump();
 			System.out.println(dinosaurY);
+		}
+		if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (CURRENT_STATE == GAME_STATE) && (!dinosaur.onGround())) {
+			//dinosaur.
 		}
 	}
 	@Override

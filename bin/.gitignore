@@ -4,5 +4,7 @@
 /GameObject.class
 /GamePanel.class
 /NoInternet.class
-/nucularImage.png
 /Rocketman.jpg
+/nucularImage.png
+/Score.class
+/FlyingEnemy.class

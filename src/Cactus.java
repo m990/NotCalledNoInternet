@@ -19,6 +19,8 @@ public class Cactus extends GameObject {
 	}
 	void draw(Graphics g) {
 		g.drawImage(nuke, x, y, width, height, null);
+		//g.setColor(Color.CYAN);
+		//g.drawRect(x, y, width, height);
 	}
 	void update() {
 		x -= 5;
