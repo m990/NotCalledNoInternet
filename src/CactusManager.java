@@ -7,7 +7,7 @@ public class CactusManager {
 		cactusList = new ArrayList<Cactus>();
 		cactusList.add(new Cactus(800, 255, 20, 20));
 		cactusList.add(new Cactus(1200, 255, 40, 40));
-		cactusList.add(new Cactus(1600, 270, 10, 10));
+		//cactusList.add(new Cactus(1600, 270, 10, 10));
 	}
 	public void add(Cactus cactusToAdd) {
 		cactusList.add(cactusToAdd);

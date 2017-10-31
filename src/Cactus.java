@@ -25,7 +25,7 @@ public class Cactus extends GameObject {
 	void update() {
 		x -= 5;
 		if (x  < 0) {
-			x += 800;
+			x += 800 + width;
 		}
 		super.update();
 	}

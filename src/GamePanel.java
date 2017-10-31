@@ -16,7 +16,7 @@ import javax.swing.Timer;
 import org.omg.CORBA.Current;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-	Timer timer;
+	static Timer timer;
 	Dinosaur dinosaur;
 	CactusManager cactusManager = new CactusManager();
 	final int MENU_STATE = 0;
@@ -26,8 +26,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	static int dinosaurY = 180;
 	Score score;
 	int playerScore;
-	FlyingEnemy flyingEnemy;
-	
+	flyingManager flyManager;
 	// Constructor
 	public GamePanel() {
 		timer = new Timer(1000/60, this);
@@ -37,10 +36,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		dinosaurY = 160;
 		score = new Score(0);
 		playerScore = 0;
-		flyingEnemy = new FlyingEnemy(900, 150, 25, 25);
+		flyManager = new flyingManager();
 	}
-	
-	
 	void startGame() {
 		timer.start();
 	}
@@ -60,7 +57,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		dinosaur.draw(g);
 		cactusManager.draw(g);
 		score.draw(g);
-		flyingEnemy.draw(g);
+		flyManager.draw(g);
 	}
 	void drawEndState(Graphics g) {
 		g.setColor(Color.BLACK);
@@ -75,7 +72,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		cactusManager.update();
 		cactusManager.collisionDection(dinosaur);
 		score.update();
-		flyingEnemy.update();
+		flyManager.update();
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
 			if (dinosaur.isAlive == false) {
@@ -85,6 +82,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				cactusManager = new CactusManager();
 				score.reset();
 				score = new Score(playerScore);
+				flyManager.reset();
+				flyManager = new flyingManager();
 			}
 		}
 	}

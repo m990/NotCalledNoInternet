@@ -1,10 +1,11 @@
 /Cactus.class
 /CactusManager.class
 /Dinosaur.class
+/FlyingEnemy.class
 /GameObject.class
 /GamePanel.class
 /NoInternet.class
 /Rocketman.jpg
-/nucularImage.png
 /Score.class
-/FlyingEnemy.class
+/nucularImage.png
+/flyingManager.class
