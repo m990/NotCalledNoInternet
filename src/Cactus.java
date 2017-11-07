@@ -2,15 +2,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class Cactus extends GameObject {
 	public static BufferedImage nuke;
+	long lastSpawnTime;
+	Random random;
+	boolean moving;
 	public Cactus(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		
+		lastSpawnTime = System.currentTimeMillis();
+		random = new Random();
+		moving = true;
 		try {
 			nuke = ImageIO.read(this.getClass().getResourceAsStream("nucularImage.png"));
 		} catch(IOException e) {
@@ -18,14 +24,19 @@ public class Cactus extends GameObject {
 		}
 	}
 	void draw(Graphics g) {
-		g.drawImage(nuke, x, y, width, height, null);
-		//g.setColor(Color.CYAN);
-		//g.drawRect(x, y, width, height);
+		g.setColor(Color.GREEN);
+		g.drawRect(x, y, width, height);
 	}
 	void update() {
-		x -= 5;
-		if (x  < 0) {
-			x += 800 + width;
+		if (moving) {
+			x -= 5;
+		}
+		if (x <= 0) {
+			if (System.currentTimeMillis() > lastSpawnTime + random.nextInt(6)) {
+				x += 1600 + width;
+				lastSpawnTime = System.currentTimeMillis();
+				System.out.println("In current millis thing for cactus");
+			}
 		}
 		super.update();
 	}

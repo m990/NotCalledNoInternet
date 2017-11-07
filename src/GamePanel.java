@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		score = new Score(0);
 		playerScore = 0;
 		flyManager = new flyingManager();
+		flyManager.add();
 	}
 	void startGame() {
 		timer.start();
@@ -76,7 +77,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
 			if (dinosaur.isAlive == false) {
-				System.out.println("Your dinosaur died");
 				dinosaur = new Dinosaur(50, 165, 100, 100);
 				cactusManager.clear();
 				cactusManager = new CactusManager();
@@ -137,7 +137,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			System.out.println("Enter pressed");
 			if (CURRENT_STATE == MENU_STATE) {
 				CURRENT_STATE = GAME_STATE;
 			}
@@ -149,14 +148,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE)) {
-			System.out.println("In jump key pressed thing");
 			dinosaur.jump();
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE) && (dinosaur.onGround())) {
-			System.out.println("Up pressed");
-			System.out.println(dinosaurY);
 			dinosaur.jump();
-			System.out.println(dinosaurY);
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (CURRENT_STATE == GAME_STATE) && (!dinosaur.onGround())) {
 			//dinosaur.

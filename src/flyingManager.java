@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class flyingManager {
 	ArrayList<FlyingEnemy> flyingList;
+	static FlyingEnemy flyingEnemy = new FlyingEnemy(1700, 100, 10, 10);
+	//static FlyingEnemy flyingEnemy2 = new FlyingEnemy(2400, 100, 10, 10);
 	public flyingManager() {
 		flyingList = new ArrayList<FlyingEnemy>();
-		flyingList.add(new FlyingEnemy(1700, 100, 10, 10));
 	}
 	void draw(Graphics g) {
 		for (FlyingEnemy fe: flyingList) {
@@ -16,10 +17,14 @@ public class flyingManager {
 	}
 	void update() {
 		for (FlyingEnemy fe: flyingList) {
-			fe.update();
+			fe.update(flyingEnemy);
 		}
 	}
 	void reset() {
 		flyingList.clear();
+	}
+	void add() {
+		flyingList.add(flyingEnemy);
+		//flyingList.add(flyingEnemy2);
 	}
 }

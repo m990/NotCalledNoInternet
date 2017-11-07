@@ -23,13 +23,11 @@ public class Dinosaur extends GameObject {
 		downSpeed = 3;
 	}
 	void draw(Graphics g) {
-		g.drawImage(jongUn, x, GamePanel.dinosaurY, width, height, null);
-		//g.setColor(Color.CYAN);
-		//g.drawRect(x, y, width, height);
+		g.setColor(Color.PINK);
+		g.drawRect(x, y, width, height);
 	}
 	void update() { 
 		if (!onGround()) {
-			System.out.println("In not on ground");
 			GamePanel.dinosaurY += 3;
 			y += downSpeed;
 		}
@@ -39,7 +37,6 @@ public class Dinosaur extends GameObject {
 		if (onGround()) {
 			GamePanel.dinosaurY -= 180;
 			y -= 180;
-			System.out.println("In on ground");
 		}
 	}
 	boolean onGround() {
