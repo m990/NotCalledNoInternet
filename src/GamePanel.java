@@ -23,21 +23,26 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME_STATE = 1;
 	final int END_STATE  = 2;
 	int CURRENT_STATE = MENU_STATE;
-	static int dinosaurY = 180;
 	Score score;
 	int playerScore;
 	flyingManager flyManager;
+	public static BufferedImage cactusImage;
 	// Constructor
 	public GamePanel() {
 		timer = new Timer(1000/60, this);
-		dinosaur = new Dinosaur(50, 165, 100, 100);
+		createDinsaur();
 		//cactus = new Cactus(800, 265, 10, 10);
 		//cactus2 = new Cactus(1000, 275, 5, 5);
-		dinosaurY = 160;
+		//dinosaurY = 160;
 		score = new Score(0);
 		playerScore = 0;
 		flyManager = new flyingManager();
 		flyManager.add();
+		try {
+			cactusImage = ImageIO.read(this.getClass().getResourceAsStream("cactusImage.png"));
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "One of your image isn't working");
+		}
 	}
 	void startGame() {
 		timer.start();
@@ -72,12 +77,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		dinosaur.update();
 		cactusManager.update();
 		cactusManager.collisionDection(dinosaur);
+		flyManager.collisionDection(dinosaur);
 		score.update();
 		flyManager.update();
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
 			if (dinosaur.isAlive == false) {
-				dinosaur = new Dinosaur(50, 165, 100, 100);
+				createDinsaur();
 				cactusManager.clear();
 				cactusManager = new CactusManager();
 				score.reset();
@@ -107,6 +113,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 	
+	void createDinsaur() {
+		dinosaur = new Dinosaur(50, NoInternet.height - 125, 100, 100);
+	}
 
 	// Key listener methods
 	
@@ -154,7 +163,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			dinosaur.jump();
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (CURRENT_STATE == GAME_STATE) && (!dinosaur.onGround())) {
-			//dinosaur.
+			dinosaur.y = NoInternet.height - 125;
 		}
 	}
 	@Override

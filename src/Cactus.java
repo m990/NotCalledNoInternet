@@ -24,8 +24,7 @@ public class Cactus extends GameObject {
 		}
 	}
 	void draw(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.drawRect(x, y, width, height);
+		g.drawImage(GamePanel.cactusImage, x, y, width, height, null);
 	}
 	void update() {
 		if (moving) {

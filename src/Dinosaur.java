@@ -28,18 +28,17 @@ public class Dinosaur extends GameObject {
 	}
 	void update() { 
 		if (!onGround()) {
-			GamePanel.dinosaurY += 3;
+			//y += 3;
 			y += downSpeed;
 		}
 		super.update();
 	}
 	void jump() {
 		if (onGround()) {
-			GamePanel.dinosaurY -= 180;
 			y -= 180;
 		}
 	}
 	boolean onGround() {
-		return ((GamePanel.dinosaurY + height + 25) >= NoInternet.height);
+		return ((y + height + 25) >= NoInternet.height);
 	}
 }

@@ -38,5 +38,6 @@ public class FlyingEnemy extends GameObject {
 					lastSpawnTime = System.currentTimeMillis();
 				}
 			}
+		super.update();
 		}
 	}

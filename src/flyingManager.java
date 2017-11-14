@@ -27,4 +27,12 @@ public class flyingManager {
 		flyingList.add(flyingEnemy);
 		//flyingList.add(flyingEnemy2);
 	}
+	void collisionDection(Dinosaur d) {
+		for (FlyingEnemy fe: flyingList) {
+			System.out.println("collision dection for loop");
+			if (d.getCollisionBox().intersects(fe.getCollisionBox())) {
+				d.setAlive(false);
+			}
+		}
+	}
 }
