@@ -5,10 +5,10 @@ public class CactusManager {
 	ArrayList<Cactus> cactusList;
 	public CactusManager() {
 		cactusList = new ArrayList<Cactus>();
-		cactusList.add(new Cactus(800, 255, 20, 20));
-		cactusList.add(new Cactus(1200, 255, 40, 40));
-		cactusList.add(new Cactus(1600, 270, 15, 15));
-		cactusList.add(new Cactus(2400, 255, 40, 40));
+		cactusList.add(new Cactus(800, 260, 20, 20));
+		cactusList.add(new Cactus(1200, 245, 20, 40));
+		cactusList.add(new Cactus(1600, 255, 25, 25));
+		cactusList.add(new Cactus(2400, 245, 20, 40));
 	}
 	public void add(Cactus cactusToAdd) {
 		cactusList.add(cactusToAdd);

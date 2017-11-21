@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class FlyingEnemy extends GameObject {
@@ -14,6 +17,7 @@ public class FlyingEnemy extends GameObject {
 	long lastSpawnTime;
 	flyingManager fm;
 	CactusManager cm;
+	ArrayList<BufferedImage> imageList;
 	public FlyingEnemy(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		moving = true;
@@ -22,8 +26,7 @@ public class FlyingEnemy extends GameObject {
 		cm = new CactusManager();
 	}
 	void draw(Graphics g) {
-		g.setColor(Color.RED);
-		g.drawRect(x, y, width, height);
+		g.drawImage(GamePanel.pterodactylImage, x, y, width, height, null);
 	}
 	void update(FlyingEnemy flyingEnemy) {
 		if (moving) {

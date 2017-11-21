@@ -27,6 +27,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int playerScore;
 	flyingManager flyManager;
 	public static BufferedImage cactusImage;
+	public static BufferedImage pterodactylImage;
+	public static BufferedImage pterodactylImage1; 
+	public static BufferedImage pterodactylImage2; 
+	public static BufferedImage pterodactylImage3; 
+	public static BufferedImage pterodactylImage4; 
+	public static BufferedImage pterodactylImage5; 
+	public static BufferedImage pterodactylImage6;
+	public static BufferedImage pterodactylImage7; 
 	// Constructor
 	public GamePanel() {
 		timer = new Timer(1000/60, this);
@@ -41,7 +49,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		try {
 			cactusImage = ImageIO.read(this.getClass().getResourceAsStream("cactusImage.png"));
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "One of your image isn't working");
+			JOptionPane.showMessageDialog(null, "One of your images isn't working");
 		}
 	}
 	void startGame() {
@@ -111,6 +119,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		else if (CURRENT_STATE == END_STATE) {
 			updateEndState();
 		}
+		
 	}
 	
 	void createDinsaur() {
