@@ -10,10 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import javax.swing.Timer;
-
-import org.omg.CORBA.Current;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	static Timer timer;
@@ -21,27 +18,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	CactusManager cactusManager = new CactusManager();
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
-	final int END_STATE  = 2;
+	final int END_STATE = 2;
 	int CURRENT_STATE = MENU_STATE;
 	Score score;
 	int playerScore;
 	flyingManager flyManager;
 	public static BufferedImage cactusImage;
 	public static BufferedImage pterodactylImage;
-	public static BufferedImage pterodactylImage1; 
-	public static BufferedImage pterodactylImage2; 
-	public static BufferedImage pterodactylImage3; 
-	public static BufferedImage pterodactylImage4; 
-	public static BufferedImage pterodactylImage5; 
+	public static BufferedImage pterodactylImage1;
+	public static BufferedImage pterodactylImage2;
+	public static BufferedImage pterodactylImage3;
+	public static BufferedImage pterodactylImage4;
+	public static BufferedImage pterodactylImage5;
 	public static BufferedImage pterodactylImage6;
-	public static BufferedImage pterodactylImage7; 
+	public static BufferedImage pterodactylImage7;
+
 	// Constructor
 	public GamePanel() {
-		timer = new Timer(1000/60, this);
+		timer = new Timer(1000 / 60, this);
 		createDinsaur();
-		//cactus = new Cactus(800, 265, 10, 10);
-		//cactus2 = new Cactus(1000, 275, 5, 5);
-		//dinosaurY = 160;
+		// cactus = new Cactus(800, 265, 10, 10);
+		// cactus2 = new Cactus(1000, 275, 5, 5);
+		// dinosaurY = 160;
 		score = new Score(0);
 		playerScore = 0;
 		flyManager = new flyingManager();
@@ -52,10 +50,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			JOptionPane.showMessageDialog(null, "One of your images isn't working");
 		}
 	}
+
 	void startGame() {
 		timer.start();
 	}
-	
+
 	// Later I'll add more states here, but for now this is just the game state
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.black);
@@ -64,7 +63,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("• Reconnecting to Wi-Fi", 300, 100);
 		g.drawString("• Running Network Diagnostics", 300, 125);
 	}
-	
+
 	void drawGameState(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, NoInternet.width, NoInternet.height);
@@ -73,14 +72,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		score.draw(g);
 		flyManager.draw(g);
 	}
+
 	void drawEndState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawString("You lost", 50, 50);
 	}
-	
+
 	void updateMenuState() {
-		
+
 	}
+
 	void updateGameState() {
 		dinosaur.update();
 		cactusManager.update();
@@ -101,10 +102,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 	}
+
 	void updateEndState() {
-		
+
 	}
-	
+
 	// I don't know what this is for
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -112,44 +114,39 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		this.paintImmediately(getBounds());
 		if (CURRENT_STATE == MENU_STATE) {
 			updateMenuState();
-		}
-		else if (CURRENT_STATE == GAME_STATE) {
+		} else if (CURRENT_STATE == GAME_STATE) {
 			updateGameState();
-		}
-		else if (CURRENT_STATE == END_STATE) {
+		} else if (CURRENT_STATE == END_STATE) {
 			updateEndState();
 		}
-		
+
 	}
-	
+
 	void createDinsaur() {
-		dinosaur = new Dinosaur(50, NoInternet.height - 125, 100, 100);
+		dinosaur = new Dinosaur(50, NoInternet.height - 125, 50, 50);
 	}
 
 	// Key listener methods
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		if (CURRENT_STATE == MENU_STATE) {
 			drawMenuState(g);
-		}
-		else if (CURRENT_STATE == GAME_STATE) {
+		} else if (CURRENT_STATE == GAME_STATE) {
 			drawGameState(g);
-		}
-		else if (CURRENT_STATE == END_STATE) {
+		} else if (CURRENT_STATE == END_STATE) {
 			drawEndState(g);
 		}
-			
-	}
 
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -157,11 +154,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (CURRENT_STATE == MENU_STATE) {
 				CURRENT_STATE = GAME_STATE;
-			}
-			else if (CURRENT_STATE == GAME_STATE) {
+			} else if (CURRENT_STATE == GAME_STATE) {
 				CURRENT_STATE = END_STATE;
-			}
-			else if (CURRENT_STATE == END_STATE) {
+			} else if (CURRENT_STATE == END_STATE) {
 				CURRENT_STATE = MENU_STATE;
 			}
 		}
@@ -175,9 +170,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			dinosaur.y = NoInternet.height - 125;
 		}
 	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
