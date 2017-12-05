@@ -11,9 +11,11 @@ public class Dinosaur extends GameObject {
 	ArrayList<BufferedImage> imageList = new ArrayList<BufferedImage>();
 	static boolean reachedTop = false;
 	static boolean onGround = true;
-	public static BufferedImage jongUn;
 	static int downSpeed;
 	int imageIndex = 0;
+	int jumpHeight;
+	boolean jumping;
+	int upSpeed;
 
 	public Dinosaur(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -26,16 +28,21 @@ public class Dinosaur extends GameObject {
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "YOUR IMAGE IS BAD. -Your dinosaur");
 			}
+			jumpHeight = NoInternet.height - 220;
+			jumping = false;
 		}
 
 		speed = 5;
 
 		downSpeed = 3;
+		upSpeed = 10;
 
 	}
 
 	void draw(Graphics g) {
-		imageIndex = updateIndex(imageIndex);
+		if (onGround()) {
+			imageIndex = updateIndex(imageIndex);
+		}
 		g.drawImage(imageList.get(imageIndex), x, y, width, height, null);
 	}
 
@@ -49,15 +56,20 @@ public class Dinosaur extends GameObject {
 
 	void update() {
 		if (!onGround()) {
-			// y += 3;
 			y += downSpeed;
+		}
+		if (jumping) {
+			y -= upSpeed;
+		}
+		if (y <= jumpHeight) {
+			jumping = false;
 		}
 		super.update();
 	}
 
 	void jump() {
 		if (onGround()) {
-			y -= 180;
+			jumping = true;
 		}
 	}
 

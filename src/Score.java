@@ -7,7 +7,7 @@ public class Score {
 		playerScore = score;
 	}
 	void draw(Graphics g) {
-		g.setColor(Color.CYAN);
+		g.setColor(Color.BLACK);
 		g.drawString("Score: " + Integer.toString(playerScore), 700, 50);
 	}
 	void update() {

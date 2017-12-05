@@ -16,6 +16,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	static Timer timer;
 	Dinosaur dinosaur;
 	CactusManager cactusManager = new CactusManager();
+	Clouds cloud;
+	Clouds cloud2;
+	Clouds cloud3;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -37,6 +40,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		createDinsaur();
+		cloud = new Clouds(200, 50, 75, 75);
+		cloud2 = new Clouds(800, 25, 45, 45);
+		cloud3 = new Clouds(600, 75, 60, 60);
 		// cactus = new Cactus(800, 265, 10, 10);
 		// cactus2 = new Cactus(1000, 275, 5, 5);
 		// dinosaurY = 160;
@@ -65,12 +71,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		g.setColor(Color.GRAY);
+		g.setColor(Color.white);
 		g.fillRect(0, 0, NoInternet.width, NoInternet.height);
-		dinosaur.draw(g);
 		cactusManager.draw(g);
 		score.draw(g);
 		flyManager.draw(g);
+		cloud.draw(g);
+		cloud2.draw(g);
+		cloud3.draw(g);
+		dinosaur.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
@@ -88,6 +97,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		cactusManager.collisionDection(dinosaur);
 		flyManager.collisionDection(dinosaur);
 		score.update();
+		cloud.update();
+		cloud2.update();
+		cloud3.update();
 		flyManager.update();
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
