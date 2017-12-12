@@ -1,13 +1,17 @@
+import java.applet.AudioClip;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+//import java.io.IOException;
+import java.io.*;
 
 import javax.imageio.ImageIO;
+import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -19,6 +23,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Clouds cloud;
 	Clouds cloud2;
 	Clouds cloud3;
+	Mountian mountian1;
+	Mountian mountian2;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -43,6 +49,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		cloud = new Clouds(200, 50, 75, 75);
 		cloud2 = new Clouds(800, 25, 45, 45);
 		cloud3 = new Clouds(600, 75, 60, 60);
+		mountian1 = new Mountian(50, 20, 300, 300);
+		mountian2 = new Mountian(600, 20, 300, 300);
 		// cactus = new Cactus(800, 265, 10, 10);
 		// cactus2 = new Cactus(1000, 275, 5, 5);
 		// dinosaurY = 160;
@@ -59,6 +67,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void startGame() {
 		timer.start();
+		
+		try {
+		FileOutputStream out = new FileOutputStream("test.txt");
+		out.write(1);
+		out.close();
+		} catch (IOException e) {
+			
+		}
 	}
 
 	// Later I'll add more states here, but for now this is just the game state
@@ -73,6 +89,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, NoInternet.width, NoInternet.height);
+		mountian1.draw(g);
+		mountian2.draw(g);
 		cactusManager.draw(g);
 		score.draw(g);
 		flyManager.draw(g);
@@ -83,12 +101,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawEndState(Graphics g) {
+		
 		g.setColor(Color.BLACK);
 		g.drawString("You lost", 50, 50);
+		g.drawString("Your final score: " + score.playerScore, 50, 100);
 	}
 
 	void updateMenuState() {
-
 	}
 
 	void updateGameState() {
@@ -101,14 +120,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		cloud2.update();
 		cloud3.update();
 		flyManager.update();
+		mountian1.update();
+		mountian2.update();
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
 			if (dinosaur.isAlive == false) {
 				createDinsaur();
 				cactusManager.clear();
 				cactusManager = new CactusManager();
-				score.reset();
-				score = new Score(playerScore);
 				flyManager.reset();
 				flyManager = new flyingManager();
 			}
@@ -170,10 +189,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				CURRENT_STATE = END_STATE;
 			} else if (CURRENT_STATE == END_STATE) {
 				CURRENT_STATE = MENU_STATE;
+				score.reset();
 			}
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE)) {
 			dinosaur.jump();
+			playSound("jump.wav");
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE) && (dinosaur.onGround())) {
 			dinosaur.jump();
@@ -187,5 +208,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	private void playSound(String fileName) {
+		AudioClip noise = JApplet.newAudioClip(getClass().getResource(fileName));
+		noise.play();
 	}
 }

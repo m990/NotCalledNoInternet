@@ -28,7 +28,7 @@ public class Cactus extends GameObject {
 	}
 	void update() {
 		if (moving) {
-			x -= 5;
+			x -= 6;
 		}
 		if (x <= 0) {
 			if (System.currentTimeMillis() > lastSpawnTime + random.nextInt(6)) {

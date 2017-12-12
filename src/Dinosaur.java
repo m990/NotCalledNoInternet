@@ -32,10 +32,10 @@ public class Dinosaur extends GameObject {
 			jumping = false;
 		}
 
-		speed = 5;
+		speed = 8;
 
-		downSpeed = 3;
-		upSpeed = 10;
+		downSpeed = 5;
+		upSpeed = 13;
 
 	}
 

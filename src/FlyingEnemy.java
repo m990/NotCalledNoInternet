@@ -27,7 +27,7 @@ public class FlyingEnemy extends GameObject {
 
 	void update(FlyingEnemy flyingEnemy) {
 		if (moving) {
-			x -= 5;
+			x -= 6;
 		}
 		if (x <= 0) {
 			if (System.currentTimeMillis() > lastSpawnTime + randomChooser.nextInt(4)) {
