@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 //import java.io.IOException;
 import java.io.*;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JApplet;
@@ -67,23 +68,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void startGame() {
 		timer.start();
-		
-		try {
-		FileOutputStream out = new FileOutputStream("test.txt");
-		out.write(1);
-		out.close();
-		} catch (IOException e) {
-			
-		}
 	}
 
 	// Later I'll add more states here, but for now this is just the game state
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.black);
-		g.drawString("There is no internet connection", 300, 50);
-		g.drawString("• Checking the network cables, modem, and router", 300, 75);
-		g.drawString("• Reconnecting to Wi-Fi", 300, 100);
-		g.drawString("• Running Network Diagnostics", 300, 125);
+		g.drawString("High score: " + getHighScore() + " - " + getHighScoreName(), 400, 250);
 	}
 
 	void drawGameState(Graphics g) {
@@ -101,10 +91,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawEndState(Graphics g) {
-		
-		g.setColor(Color.BLACK);
-		g.drawString("You lost", 50, 50);
-		g.drawString("Your final score: " + score.playerScore, 50, 100);
+		writeHighScore();
+		CURRENT_STATE = MENU_STATE;
+		score.reset();
 	}
 
 	void updateMenuState() {
@@ -136,6 +125,57 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateEndState() {
 
+	}
+	void writeHighScore() {
+			
+		try {
+			int prevScore = getHighScore();
+			
+			if (score.playerScore > prevScore) {
+				String name = JOptionPane.showInputDialog("New high score! Your score is " + score.playerScore + "\nEnter your name");
+				FileWriter fw = new FileWriter("test.txt");
+				fw.write(name + score.playerScore);
+				fw.close();
+			}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	int getHighScore(){
+		String contents="";
+		try {
+			
+			FileReader fr = new FileReader("test.txt");
+			int c = fr.read();
+			while(c != -1){
+				contents+=(char)c;
+				c = fr.read();
+				
+			}
+			fr.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Integer.parseInt(contents.replaceAll("[^0-9]", ""));
+	}
+	String getHighScoreName() {
+		String contents="";
+		try {
+			
+			FileReader fr = new FileReader("test.txt");
+			int c = fr.read();
+			while(c != -1){
+				contents+=(char)c;
+				c = fr.read();
+				
+			}
+			fr.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return contents.replaceAll("[0-9]", "");
 	}
 
 	// I don't know what this is for
@@ -185,11 +225,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (CURRENT_STATE == MENU_STATE) {
 				CURRENT_STATE = GAME_STATE;
-			} else if (CURRENT_STATE == GAME_STATE) {
-				CURRENT_STATE = END_STATE;
-			} else if (CURRENT_STATE == END_STATE) {
-				CURRENT_STATE = MENU_STATE;
-				score.reset();
 			}
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE)) {
@@ -200,7 +235,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			dinosaur.jump();
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (CURRENT_STATE == GAME_STATE) && (!dinosaur.onGround())) {
-			dinosaur.y = NoInternet.height - 125;
 		}
 	}
 
