@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
 	int CURRENT_STATE = MENU_STATE;
-	Score score;
+	static Score score = new Score(0);
 	int playerScore;
 	flyingManager flyManager;
 	public static BufferedImage cactusImage;
@@ -55,7 +55,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// cactus = new Cactus(800, 265, 10, 10);
 		// cactus2 = new Cactus(1000, 275, 5, 5);
 		// dinosaurY = 160;
-		score = new Score(0);
 		playerScore = 0;
 		flyManager = new flyingManager();
 		flyManager.add();
@@ -67,13 +66,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void startGame() {
+		System.out.println(NoInternet.height/2);
 		timer.start();
 	}
 
 	// Later I'll add more states here, but for now this is just the game state
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.black);
-		g.drawString("High score: " + getHighScore() + " - " + getHighScoreName(), 400, 250);
+		g.drawString("Weird Dinosaur Game!", 305, 100);
+		g.drawString("High score: " + getHighScore() + " - " + getHighScoreName(), 300, NoInternet.height/2);
 	}
 
 	void drawGameState(Graphics g) {
@@ -82,7 +83,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		mountian1.draw(g);
 		mountian2.draw(g);
 		cactusManager.draw(g);
-		score.draw(g);
+		score.draw(g, ""+getHighScore());
 		flyManager.draw(g);
 		cloud.draw(g);
 		cloud2.draw(g);

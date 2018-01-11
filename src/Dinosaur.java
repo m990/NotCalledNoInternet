@@ -28,7 +28,7 @@ public class Dinosaur extends GameObject {
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "YOUR IMAGE IS BAD. -Your dinosaur");
 			}
-			jumpHeight = NoInternet.height - 220;
+			jumpHeight = NoInternet.height - 240;
 			jumping = false;
 		}
 
@@ -63,6 +63,11 @@ public class Dinosaur extends GameObject {
 		}
 		if (y <= jumpHeight) {
 			jumping = false;
+		}
+		if (GamePanel.score.playerScore %300 == 0) {
+			if (GamePanel.score.playerScore <= 600) {
+				jumpHeight += 20;
+			}
 		}
 		super.update();
 	}

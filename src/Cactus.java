@@ -12,6 +12,7 @@ public class Cactus extends GameObject {
 	long lastSpawnTime;
 	Random random;
 	boolean moving;
+	int speed = 6;
 	public Cactus(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		lastSpawnTime = System.currentTimeMillis();
@@ -27,8 +28,13 @@ public class Cactus extends GameObject {
 		g.drawImage(GamePanel.cactusImage, x, y, width, height, null);
 	}
 	void update() {
+		if (GamePanel.score.playerScore %400 == 0) {
+			if (GamePanel.score.playerScore <= 2000) {
+				speed++;
+			}
+		}
 		if (moving) {
-			x -= 6;
+			x -= speed;
 		}
 		if (x <= 0) {
 			if (System.currentTimeMillis() > lastSpawnTime + random.nextInt(6)) {

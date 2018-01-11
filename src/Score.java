@@ -9,9 +9,10 @@ public class Score {
 	public Score(int score) {
 		playerScore = score;
 	}
-	void draw(Graphics g) {
+	void draw(Graphics g, String highScore) {
 		g.setColor(Color.black);
-		g.drawString("Score: " + Integer.toString(playerScore), 700, 50);
+		g.drawString("Score: " + Integer.toString(playerScore), 675, 50);
+		g.drawString("High Score: " + highScore, 675, 75);
 	}
 	void update() {
 		++playerScore;
