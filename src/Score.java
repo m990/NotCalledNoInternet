@@ -11,8 +11,16 @@ public class Score {
 	}
 	void draw(Graphics g, String highScore) {
 		g.setColor(Color.black);
+		if (Integer.parseInt(highScore) <= playerScore) {
+			g.setColor(Color.red);
+		}
 		g.drawString("Score: " + Integer.toString(playerScore), 675, 50);
-		g.drawString("High Score: " + highScore, 675, 75);
+		if (Integer.parseInt(highScore) <= playerScore) {
+			g.drawString("High Score: " + playerScore, 675, 75);
+		}
+		else {
+			g.drawString("High Score: " + Integer.parseInt(highScore), 675, 75);
+		}
 	}
 	void update() {
 		++playerScore;

@@ -75,6 +75,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.black);
 		g.drawString("Weird Dinosaur Game!", 305, 100);
 		g.drawString("High score: " + getHighScore() + " - " + getHighScoreName(), 300, NoInternet.height/2);
+		g.drawString("Press enter to start, use space or the up arrow to jump.", 215, NoInternet.height/2 + 50);
 	}
 
 	void drawGameState(Graphics g) {
@@ -112,9 +113,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		flyManager.update();
 		mountian1.update();
 		mountian2.update();
+		scoreSound();
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
 			if (dinosaur.isAlive == false) {
+				playSound("death.wav");
 				createDinsaur();
 				cactusManager.clear();
 				cactusManager = new CactusManager();
@@ -126,6 +129,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateEndState() {
 
+	}
+	void scoreSound() {
+		if (score.playerScore %400 == 0) {
+			playSound("score.wav");
+		}
 	}
 	void writeHighScore() {
 			
@@ -233,6 +241,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			playSound("jump.wav");
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE) && (dinosaur.onGround())) {
+			dinosaur.jump();
+		}
+		if ((e.getKeyCode() == KeyEvent.VK_SPACE) && (CURRENT_STATE == GAME_STATE) && (dinosaur.onGround())) {
 			dinosaur.jump();
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (CURRENT_STATE == GAME_STATE) && (!dinosaur.onGround())) {
