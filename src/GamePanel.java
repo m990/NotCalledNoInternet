@@ -84,12 +84,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		mountian1.draw(g);
 		mountian2.draw(g);
 		cactusManager.draw(g);
-		score.draw(g, ""+getHighScore());
 		flyManager.draw(g);
 		cloud.draw(g);
 		cloud2.draw(g);
 		cloud3.draw(g);
 		dinosaur.draw(g);
+		score.draw(g, ""+getHighScore());
 	}
 
 	void drawEndState(Graphics g) {
@@ -123,6 +123,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				cactusManager = new CactusManager();
 				flyManager.reset();
 				flyManager = new flyingManager();
+				flyManager.add();
 			}
 		}
 	}
@@ -236,15 +237,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				CURRENT_STATE = GAME_STATE;
 			}
 		}
-		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE)) {
+		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE) && (dinosaur.onGround())) {
 			dinosaur.jump();
 			playSound("jump.wav");
 		}
-		if ((e.getKeyCode() == KeyEvent.VK_UP) && (CURRENT_STATE == GAME_STATE) && (dinosaur.onGround())) {
-			dinosaur.jump();
-		}
 		if ((e.getKeyCode() == KeyEvent.VK_SPACE) && (CURRENT_STATE == GAME_STATE) && (dinosaur.onGround())) {
 			dinosaur.jump();
+			playSound("jump.wav");
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (CURRENT_STATE == GAME_STATE) && (!dinosaur.onGround())) {
 		}

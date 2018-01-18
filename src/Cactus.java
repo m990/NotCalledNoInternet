@@ -18,20 +18,13 @@ public class Cactus extends GameObject {
 		lastSpawnTime = System.currentTimeMillis();
 		random = new Random();
 		moving = true;
-		try {
-			nuke = ImageIO.read(this.getClass().getResourceAsStream("nucularImage.png"));
-		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null, "Your image hates you -Your image");
-		}
 	}
 	void draw(Graphics g) {
 		g.drawImage(GamePanel.cactusImage, x, y, width, height, null);
 	}
 	void update() {
 		if (GamePanel.score.playerScore %400 == 0) {
-			if (GamePanel.score.playerScore <= 2000) {
-				speed++;
-			}
+			speed++;
 		}
 		if (moving) {
 			x -= speed;
@@ -40,7 +33,6 @@ public class Cactus extends GameObject {
 			if (System.currentTimeMillis() > lastSpawnTime + random.nextInt(6)) {
 				x += 1600 + width;
 				lastSpawnTime = System.currentTimeMillis();
-				System.out.println("In current millis thing for cactus");
 			}
 		}
 		super.update();

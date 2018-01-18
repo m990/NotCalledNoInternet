@@ -41,7 +41,7 @@ public class flyingManager {
 
 		}
 	}
-
+	
 	void reset() {
 		flyingList.clear();
 	}
@@ -53,7 +53,6 @@ public class flyingManager {
 
 	void collisionDection(Dinosaur d) {
 		for (FlyingEnemy fe : flyingList) {
-			System.out.println("collision dection for loop");
 			if (d.getCollisionBox().intersects(fe.getCollisionBox())) {
 				d.setAlive(false);
 			}
