@@ -10,11 +10,13 @@ import javax.swing.JOptionPane;
 public class Cactus extends GameObject {
 	public static BufferedImage nuke;
 	long lastSpawnTime;
+	static int lastSpawnPos;
 	Random random;
 	boolean moving;
 	int speed = 6;
 	public Cactus(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		lastSpawnPos = x;
 		lastSpawnTime = System.currentTimeMillis();
 		random = new Random();
 		moving = true;
@@ -30,9 +32,13 @@ public class Cactus extends GameObject {
 			x -= speed;
 		}
 		if (x <= 0) {
-			if (System.currentTimeMillis() > lastSpawnTime + random.nextInt(6)) {
-				x += 1600 + width;
+			if (System.currentTimeMillis() > lastSpawnTime + random.nextInt(1000000)) {
+				x = NoInternet.width + 200;
 				lastSpawnTime = System.currentTimeMillis();
+				if (x < lastSpawnPos + 150) {
+					x += (lastSpawnPos + 150) - x;						
+				}
+				lastSpawnPos = x;
 			}
 		}
 		super.update();

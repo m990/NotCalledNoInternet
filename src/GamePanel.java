@@ -122,7 +122,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				cactusManager.clear();
 				cactusManager = new CactusManager();
 				flyManager.reset();
-				flyManager = new flyingManager();
 				flyManager.add();
 			}
 		}
@@ -142,9 +141,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			int prevScore = getHighScore();
 			
 			if (score.playerScore > prevScore) {
-				String name = JOptionPane.showInputDialog("New high score! Your score is " + score.playerScore + "\nEnter your name");
+				String name = "player";
+				name = JOptionPane.showInputDialog("New high score! Your score is " + score.playerScore + "\nEnter your name");
+				name = name.replaceAll("[0-9]", "");
 				FileWriter fw = new FileWriter("test.txt");
-				fw.write(name + score.playerScore);
+				fw.write(score.playerScore + name);
 				fw.close();
 			}
 			
@@ -158,6 +159,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		try {
 			
 			FileReader fr = new FileReader("test.txt");
+			if (!fr.ready()) {
+				System.out.println("no file");
+			}
 			int c = fr.read();
 			while(c != -1){
 				contents+=(char)c;
@@ -166,7 +170,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			fr.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			//System.out.println("No file!");
 		}
 		return Integer.parseInt(contents.replaceAll("[^0-9]", ""));
 	}

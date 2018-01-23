@@ -11,7 +11,7 @@ public class FlyingEnemy extends GameObject {
 	CactusManager cm;
 	ArrayList<BufferedImage> imageList;
 	int imageIndex = 0;
-	int speed;
+	int speed = 6;
 
 	public FlyingEnemy(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -19,7 +19,6 @@ public class FlyingEnemy extends GameObject {
 		lastSpawnTime = System.currentTimeMillis();
 		fm = new flyingManager();
 		cm = new CactusManager();
-		speed = 6;
 	}
 
 	void draw(Graphics g) {
@@ -47,5 +46,8 @@ public class FlyingEnemy extends GameObject {
 			}
 		}
 		super.update();
+	}
+	void speedReset() {
+		speed = 0;
 	}
 }

@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 public class flyingManager {
 	ArrayList<FlyingEnemy> flyingList;
 	static ArrayList<BufferedImage> imageList;
-	static FlyingEnemy flyingEnemy = new FlyingEnemy(1700, 100, 30, 30);
 
 	// static FlyingEnemy flyingEnemy2 = new FlyingEnemy(2400, 100, 10, 10);
 	public flyingManager() {
@@ -37,17 +36,18 @@ public class flyingManager {
 
 	void update() {
 		for (FlyingEnemy fe : flyingList) {
-			fe.update(flyingEnemy);
+			fe.update(fe);
 
 		}
 	}
 	
 	void reset() {
+		System.out.println("test");
 		flyingList.clear();
 	}
 
 	void add() {
-		flyingList.add(flyingEnemy);
+		flyingList.add(new FlyingEnemy(1700, 100, 30, 30));
 		// flyingList.add(flyingEnemy2);
 	}
 
