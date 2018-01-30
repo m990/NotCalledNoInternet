@@ -33,6 +33,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	static Score score = new Score(0);
 	int playerScore;
 	flyingManager flyManager;
+	int timesRun = 0;
+	int oldScore;
 	public static BufferedImage cactusImage;
 	public static BufferedImage pterodactylImage;
 	public static BufferedImage pterodactylImage1;
@@ -76,6 +78,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Weird Dinosaur Game!", 305, 100);
 		g.drawString("High score: " + getHighScore() + " - " + getHighScoreName(), 300, NoInternet.height/2);
 		g.drawString("Press enter to start, use space or the up arrow to jump.", 215, NoInternet.height/2 + 50);
+		if (timesRun >= 1) {
+			g.drawString("Your score: " + oldScore, 335, 175);
+		}
 	}
 
 	void drawGameState(Graphics g) {
@@ -117,12 +122,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (!dinosaur.isAlive) {
 			CURRENT_STATE = END_STATE;
 			if (dinosaur.isAlive == false) {
+				oldScore = score.playerScore;
 				playSound("death.wav");
 				createDinsaur();
 				cactusManager.clear();
 				cactusManager = new CactusManager();
 				flyManager.reset();
 				flyManager.add();
+				timesRun++;
 			}
 		}
 	}
